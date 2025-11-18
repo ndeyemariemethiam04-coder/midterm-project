@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking.com — Car Rental</title>
+  <link rel="stylesheet" href="header.css">
+  <link rel="stylesheet" href="footer.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Poppins', -apple-system, sans-serif; background: #f6f6f6; color: #333; }
+    
+    .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    
+    .hero {
+      background: #003580;
+      color: white;
+      padding: 3rem 0;
+      text-align: center;
+    }
+    
+    .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .hero p { font-size: 1.1rem; opacity: 0.9; }
+    
+    .search-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      margin: -2rem auto 2rem;
+      max-width: 900px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    
+    .search-field { display: flex; flex-direction: column; gap: 0.5rem; }
+    .search-field label { font-size: 0.9rem; font-weight: 600; color: #333; }
+    .search-field input, .search-field select {
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    
+    .btn {
+      background: #003580;
+      color: white;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .btn:hover { background: #0071c2; }
+    
+    .cars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .car-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .car-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    
+    .car-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .car-info {
+      padding: 1.5rem;
+    }
+    
+    .car-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #003580;
+    }
+    
+    .car-category {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    
+    .car-features {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: #666;
+    }
+    
+    .car-features span {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    
+    .car-price {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+    }
+    
+    .price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #003580;
+    }
+    
+    .price-label {
+      font-size: 0.85rem;
+      color: #666;
+    }
+  </style>
+  <style>
+    
+    #site-header .hero-section {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+ 
+  <div id="site-header"></div>
+
+  
+  <div class="hero">
+    <div class="container">
+      <h1>Find the perfect car rental</h1>
+      <p>Compare prices from the world's leading car rental companies</p>
+    </div>
+  </div>
+
+  
+  <div class="container">
+    <div class="search-card">
+      <div class="search-field">
+        <label>Pick-up location</label>
+        <input type="text" placeholder="Dakar, Senegal" value="Dakar">
+      </div>
+      <div class="search-field">
+        <label>Pick-up date</label>
+        <input type="date" id="pickup-date">
+      </div>
+      <div class="search-field">
+        <label>Drop-off date</label>
+        <input type="date" id="dropoff-date">
+      </div>
+      <div class="search-field">
+        <label>&nbsp;</label>
+        <button class="btn">Search</button>
+      </div>
+    </div>
+
+   
+    <h2 style="margin-bottom: 1rem;">Available Cars in Dakar</h2>
+    <div class="cars-grid" id="cars-grid"></div>
+  </div>
+
+ 
+  <div id="site-footer"></div>
+
+  <script>
+    const CARS=[{id:1,name:'Toyota Corolla',category:'Compact',passengers:5,price:21000,img:'toyota.jpeg'},
+    {id:2,name:'Honda CR-V',category:'SUV',passengers:5,price:33000,img:'honda.webp'},
+    {id:3,name:'Mercedes-Benz E-Class',category:'Luxury',passengers:5,price:57000,img:'mercedes.avif'}];
+    CARS.forEach(c=>document.getElementById('cars-grid').innerHTML+=`<div class="car-card"><img src="${c.img}" alt="${c.name}"><div class="car-info"><div class="car-name">${c.name}</div><div class="car-category">${c.category}</div><div class="car-features"><span>👥 ${c.passengers}</span></div><div class="car-price"><div><div class="price">${c.price.toLocaleString()} CFA</div><div class="price-label">per day</div></div></div></div></div>`);
+  </script>
+
+  <script src="header.js" ></script>
+  <script src="footer.js" ></script>
+</body>
+</html>

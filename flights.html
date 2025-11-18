@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking.com — Flights</title>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+<link rel="stylesheet" href="header.css" />
+<link rel="stylesheet" href="footer.css" />
+<style>
+  
+  @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap");
+  :root{
+    --primary-color:#003580;
+    --secondary-color:#febb02;
+    --text-dark:#0f172a;
+    --text-light:#7e8da2;
+    --white:#ffffff;
+    --max-width:1200px;
+    --header-font:'Playfair Display', serif;
+    --card-radius:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Poppins',sans-serif;background:#f5f6f8;color:var(--text-dark);}
+  a{text-decoration:none;color:inherit}
+  .container{max-width:var(--max-width);margin:0 auto;padding:2rem}
+
+
+  nav{background:var(--white);box-shadow:0 4px 20px rgba(0,0,0,0.08);position:sticky;top:0;z-index:40}
+  .nav-inner{display:flex;align-items:center;gap:1rem;padding:1rem 2rem}
+  .brand{display:flex;align-items:center;gap:.75rem;font-weight:600;color:var(--text-dark)}
+  .brand .logo{width:44px;height:44px;border-radius:8px;display:grid;place-items:center;background:var(--secondary-color);color:white;font-weight:800}
+  .nav-links{margin-left:auto;display:flex;gap:1rem;align-items:center}
+  .nav-links a{padding:.5rem .75rem;border-radius:6px;color:var(--text-light)}
+  .nav-links a:hover, .nav-links a.active{color:var(--primary-color);font-weight:600}
+
+  
+  .hero{background-image:linear-gradient(120deg, rgba(0,53,128,0.85), rgba(0,53,128,0.55)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop');background-size:cover;background-position:center;padding:3rem 0;color:var(--white)}
+  .hero .container{display:grid;gap:1.5rem}
+  .hero h1{font-family:var(--header-font);font-size:2.25rem;line-height:1.05}
+  .search-card{background:rgba(255,255,255,0.95);border-radius:12px;padding:1rem;box-shadow:0 10px 30px rgba(0,0,0,0.12);display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
+  .search-field{flex:1;display:flex;gap:.5rem;align-items:center}
+  .search-field input, .search-field select{width:100%;padding:.7rem .75rem;border-radius:8px;border:1px solid #e9eef6;font-size:.95rem}
+  .search-actions{display:flex;gap:.5rem}
+  .btn{background:var(--secondary-color);color:var(--white);padding:.7rem 1rem;border-radius:8px;border:none;cursor:pointer}
+
+  
+  main{padding:2rem 0}
+  .sidebar-layout{display:grid;grid-template-columns:320px 1fr;gap:1.25rem}
+
+  
+  .filters{background:var(--white);padding:1rem;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+  .filters h4{margin-bottom:.75rem;font-weight:700}
+  .filter-group{margin-bottom:1rem}
+  .range{display:flex;gap:.5rem;align-items:center}
+  .chips{display:flex;gap:.5rem;flex-wrap:wrap}
+  .chip{padding:.4rem .6rem;border-radius:999px;background:#f6f7fa;color:var(--text-dark);cursor:pointer}
+  .chip.active{background:var(--secondary-color);color:white}
+  label span{color:var(--text-light);font-size:.9rem}
+
+  
+  .listings{display:grid;gap:1rem}
+  .card{display:flex;gap:1rem;background:var(--white);padding:1rem;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.06);align-items:center;justify-content:space-between}
+  .card div{display:flex;flex-direction:column}
+  .card h3{font-size:1.05rem;margin-bottom:.3rem}
+  .meta{display:flex;gap:.75rem;align-items:center;color:var(--text-light);font-size:.92rem;margin-bottom:.5rem}
+  .price{font-size:1.1rem;font-weight:700;color:var(--primary-color)}
+
+  @media(max-width:900px){.sidebar-layout{grid-template-columns:1fr}.search-card{flex-direction:column;align-items:stretch}.card{flex-direction:column;align-items:flex-start}}
+</style>
+<style>
+  
+  #site-header .hero-section {
+    display: none !important;
+  }
+</style>
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<header class="hero">
+  <div class="container">
+    <h1>Search Flights & Get The Best Deals</h1>
+    <div class="search-card">
+      <div class="search-field"><input type="text" id="from" placeholder="From"></div>
+      <div class="search-field"><input type="text" id="to" placeholder="To"></div>
+      <div class="search-field"><input type="date" id="depart"></div>
+      <div class="search-field"><input type="date" id="return"></div>
+      <div class="search-field">
+        <select id="passengers">
+          <option>1 Passenger</option>
+          <option>2 Passengers</option>
+          <option>3 Passengers</option>
+        </select>
+      </div>
+      <div class="search-actions"><button class="btn" id="searchBtn">Search</button></div>
+    </div>
+  </div>
+</header>
+
+<main class="container sidebar-layout">
+  <aside class="filters">
+    <h4>Filters</h4>
+    <div class="filter-group">
+      <label class="small">Airline</label>
+      <div class="chips" id="airline-chips">
+        <div class="chip" data-airline="Air France">Air France</div>
+        <div class="chip" data-airline="Delta">Delta</div>
+        <div class="chip" data-airline="Japan Airlines">Japan Airlines</div>
+      </div>
+    </div>
+    <div class="filter-group">
+      <label class="small">Price Range</label>
+      <div class="range">
+        <input type="number" id="min-price" placeholder="Min" style="width:100%">
+        <input type="number" id="max-price" placeholder="Max" style="width:100%">
+      </div>
+    </div>
+    <button class="btn" id="applyFilters">Apply</button>
+    <button class="btn" id="clearFilters" style="background:#eef2ff;color:var(--text-dark);margin-left:.5rem">Clear</button>
+  </aside>
+
+  <section>
+    <div class="listings" id="listings"></div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+
+<script>
+  const FLIGHTS=[{id:1,from:'Dakar',to:'Paris',price:311263,airline:'Air France',duration:'6h 50m'},{id:2,from:'New York',to:'Tokyo',price:679119,airline:'Japan Airlines',duration:'14h 30m'},{id:3,from:'Paris',to:'Dakar',price:328041,airline:'Air France',duration:'6h 40m'}];
+  FLIGHTS.forEach(f=>document.getElementById('listings').innerHTML+=`<div class="card"><div><h3>${f.airline}</h3><p>${f.from} → ${f.to}</p><p>Duration: ${f.duration}</p></div><div class="price">${f.price.toLocaleString()} CFA</div></div>`);
+</script>
+<script src="header.js" defer></script>
+<script src="footer.js" defer></script>
+</body>
+</html>

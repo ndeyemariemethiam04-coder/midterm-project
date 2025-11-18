@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking.com — Stays</title>
+  <link rel="stylesheet" href="stays.css">
+  <link rel="stylesheet" href="header.css">
+  <link rel="stylesheet" href="footer.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+<body>
+ 
+  <div id="site-header"></div>
+
+  <main class="container">
+    <div class="sidebar-layout">
+      
+      <aside class="filters">
+        <h4>Filters</h4>
+
+        <div class="filter-group">
+          <label>Sort</label>
+          <select id="sort">
+            <option value="recommended">Recommended</option>
+            <option value="price-asc">Price: low to high</option>
+            <option value="price-desc">Price: high to low</option>
+            <option value="rating-desc">Top rated</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Price range <span class="muted">(CFA/night)</span></label>
+          <div class="range">
+            <input type="number" id="min-price" placeholder="Min" />
+            <input type="number" id="max-price" placeholder="Max" />
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label>Rating</label>
+          <div class="chips" id="rating-chips">
+            <div class="chip" data-rating="4">4★ & up</div>
+            <div class="chip" data-rating="3">3★ & up</div>
+            <div class="chip" data-rating="0">All</div>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label>Facilities</label>
+          <div class="chips" id="facility-chips">
+            <div class="chip" data-facility="wifi">Wi‑Fi</div>
+            <div class="chip" data-facility="breakfast">Breakfast</div>
+            <div class="chip" data-facility="pool">Pool</div>
+            <div class="chip" data-facility="parking">Parking</div>
+          </div>
+        </div>
+
+        <div style="margin-top:1rem">
+          <button class="btn" id="apply-filters">Apply</button>
+          <button class="btn clear-btn" id="clear-filters">Clear</button>
+        </div>
+      </aside>
+
+      
+      <section>
+        <div style="display:flex;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;align-items:center">
+          <div class="pill">Showing <span id="results-count">0</span> stays</div>
+          <div class="muted small">Best deals near your selected location</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 360px;gap:1rem">
+          <div>
+            <div class="listings" id="listings"></div>
+          </div>
+          <div>
+            <div class="map" id="map">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3857.982747843704!2d-17.46768648465159!3d14.693425989764116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xec172f5f5b4a8c9%3A0x1b1b1b1b1b1b1b1b!2sDakar%2C%20Senegal!5e0!3m2!1sen!2s!4v1703123456789!5m2!1sen!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  
+  <div id="site-footer"></div>
+
+  <script src="stays.js"></script>
+  <script src="header.js" defer></script>
+  <script src="footer.js" defer></script>
+</body>
+</html>

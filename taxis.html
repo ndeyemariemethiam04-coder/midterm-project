@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking.com — Airport Taxis</title>
+  <link rel="stylesheet" href="header.css">
+  <link rel="stylesheet" href="footer.css">
+  <script src="header.js"></script>
+  <script src="footer.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Poppins', -apple-system, sans-serif; background: #f6f6f6; color: #333; }
+    
+    .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    
+    .hero {
+      background: #003580;
+      color: white;
+      padding: 3rem 0;
+      text-align: center;
+    }
+    
+    .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .hero p { font-size: 1.1rem; opacity: 0.9; }
+    
+    .search-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      margin: -2rem auto 2rem;
+      max-width: 900px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    
+    .search-field { display: flex; flex-direction: column; gap: 0.5rem; }
+    .search-field label { font-size: 0.9rem; font-weight: 600; color: #333; }
+    .search-field input, .search-field select {
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    
+    .btn {
+      background: #003580;
+      color: white;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .btn:hover { background: #0071c2; }
+    
+    .info-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    
+    .info-section h3 {
+      color: #003580;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+    
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .info-card {
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #003580;
+    }
+    
+    .info-card h4 {
+      color: #003580;
+      margin-bottom: 0.5rem;
+    }
+    
+    .info-card p {
+      color: #666;
+      line-height: 1.6;
+    }
+    
+    .taxis-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .taxi-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .taxi-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    
+    .taxi-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .taxi-info {
+      padding: 1.5rem;
+    }
+    
+    .taxi-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #003580;
+    }
+    
+    .taxi-type {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    
+    .taxi-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    
+    .feature-badge {
+      background: #e8f0fe;
+      color: #003580;
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    
+    .taxi-price {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+    }
+    
+    .price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #003580;
+    }
+    
+    .price-label {
+      font-size: 0.85rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="site-header"></div>
+
+  
+  <div class="hero">
+    <div class="container">
+      <h1>Book your airport taxi</h1>
+      <p>Reliable and comfortable transfers to and from Dakar Airport</p>
+    </div>
+  </div>
+
+ 
+  <div class="container">
+    <div class="search-card">
+      <div class="search-field">
+        <label>Pick-up location</label>
+        <select id="pickup">
+          <option>Dakar Airport (DSS)</option>
+          <option>Dakar City Center</option>
+          <option>Hotel Address</option>
+        </select>
+      </div>
+      <div class="search-field">
+        <label>Drop-off location</label>
+        <select id="dropoff">
+          <option>Dakar City Center</option>
+          <option>Dakar Airport (DSS)</option>
+          <option>Hotel Address</option>
+        </select>
+      </div>
+      <div class="search-field">
+        <label>Pick-up date & time</label>
+        <input type="datetime-local" id="pickup-time">
+      </div>
+      <div class="search-field">
+        <label>&nbsp;</label>
+        <button class="btn">Search</button>
+      </div>
+    </div>
+
+  
+    <div class="info-section">
+      <h3>Why book with us?</h3>
+      <div class="info-grid">
+        <div class="info-card">
+          <h4>✓ Fixed Prices</h4>
+          <p>No hidden fees. The price you see is the price you pay.</p>
+        </div>
+        <div class="info-card">
+          <h4>✓ Professional Drivers</h4>
+          <p>All our drivers are licensed, insured, and speak English.</p>
+        </div>
+        <div class="info-card">
+          <h4>✓ 24/7 Service</h4>
+          <p>Available round the clock for all your transfer needs.</p>
+        </div>
+        <div class="info-card">
+          <h4>✓ Free Cancellation</h4>
+          <p>Cancel up to 24 hours before pickup for a full refund.</p>
+        </div>
+      </div>
+    </div>
+
+    
+    <h2 style="margin-bottom: 1rem;">Available Airport Taxis</h2>
+    <div class="taxis-grid" id="taxis-grid"></div>
+  </div>
+
+ 
+  <div id="site-footer"></div>
+
+  <script>
+    const TAXIS=[
+      {id:1,name:'Taxi',type:'Standard Car',passengers:4,luggage:2,features:['Air Conditioning','English Speaking Driver'],price:15000,img:'taxi.jpeg'},
+      {id:2,name:'Mini Bus',type:'Large Vehicle',passengers:8,luggage:6,features:['Air Conditioning','Extra Space'],price:90000,img:'mini bus.png'},
+      {id:3,name:'Bus',type:'Group Transfer',passengers:15,luggage:10,features:['Air Conditioning','Extra Space','Group Discount'],price:7000,img:'bus.webp'}
+    ];
+    TAXIS.forEach(t=>document.getElementById('taxis-grid').innerHTML+=`<div class="taxi-card"><img src="${t.img}" alt="${t.name}"><div class="taxi-info"><div class="taxi-name">${t.name}</div><div class="taxi-type">${t.type}</div><div style="display:flex;gap:1rem;margin-bottom:1rem;color:#666;font-size:0.9rem;"><span>👥 ${t.passengers} passengers</span><span>🧳 ${t.luggage} luggage</span></div><div class="taxi-features">${t.features.map(f=>`<span class="feature-badge">${f}</span>`).join('')}</div><div class="taxi-price"><div><div class="price">${t.price.toLocaleString()} CFA</div><div class="price-label">one-way trip</div></div><button class="btn" onclick="alert('Booking feature coming soon!')">Book Now</button></div></div></div>`);
+    const now=new Date();now.setHours(now.getHours()+2);
+    document.getElementById('pickup-time').value=now.toISOString().slice(0,16);
+  </script>
+
+  <style>
+    
+    #site-header .hero-section {
+      display: none !important;
+    }
+  </style>
+
+</body>
+</html>

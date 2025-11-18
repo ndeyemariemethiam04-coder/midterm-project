@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Booking Clone — Hotel Search</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="footer.css" />
+
+    <style>
+     
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap");
+
+      :root{
+        --booking-blue: #003580;   
+        --booking-yellow: #FFB400; 
+        --text-dark: #0f172a;
+        --text-light: #667085;
+        --white: #ffffff;
+        --max-width: 1200px;
+        --header-font: "Playfair Display", serif;
+        --radius: 12px;
+      }
+
+      *{box-sizing:border-box;margin:0;padding:0}
+      html,body{height:100%;font-family:"Poppins",sans-serif;background:#f8fafc;color:var(--text-dark);-webkit-font-smoothing:antialiased}
+      a{color:inherit;text-decoration:none}
+
+      .container{max-width:var(--max-width);margin:0 auto;padding:1.5rem}
+
+      nav{
+        background:var(--booking-blue);
+        color:var(--white);
+        position:sticky;
+        top:0;
+        z-index:50;
+        box-shadow:0 6px 20px rgba(2,8,23,0.12);
+      }
+      .nav-inner{display:flex;align-items:center;gap:1rem;padding:.9rem 1.25rem;max-width:var(--max-width);margin:0 auto}
+      .brand{display:flex;align-items:center;gap:.75rem;font-weight:700}
+      .brand .brand-text{font-family:var(--header-font);font-size:1.2rem;letter-spacing:.5px;color:var(--white)}
+      .nav-links{margin-left:auto;display:flex;gap:.6rem;align-items:center}
+      .nav-links a{color:var(--white);opacity:.95;padding:.35rem .6rem;border-radius:6px;font-weight:500}
+      .nav-links a:hover{background:rgba(255,255,255,0.08)}
+
+      .hero{
+        background-image:
+          linear-gradient(180deg, rgba(0,53,128,0.9), rgba(0,53,128,0.55)),
+          url("https://images.unsplash.com/photo-1501117716987-c8e7b6d6a8f5?q=80&w=1600&auto=format&fit=crop");
+        background-size:cover;
+        background-position:center;
+        padding:3.25rem 0 2.5rem;
+        color:var(--white);
+      }
+      .hero .container{display:grid;gap:1rem}
+      .hero h1{font-family:var(--header-font);font-size:2.2rem;line-height:1.02}
+      .hero p{color:rgba(255,255,255,0.9);max-width:60ch}
+
+      .search-card{
+        background:var(--white);
+        border-radius:var(--radius);
+        padding:.9rem;
+        box-shadow:0 18px 40px rgba(2,8,23,0.12);
+        display:flex;
+        gap:.6rem;
+        align-items:center;
+        margin-top:1rem;
+      }
+      .search-field{flex:1;display:flex;gap:.5rem;align-items:center}
+      .search-field input, .search-field select{
+        width:100%;
+        padding:.65rem .75rem;
+        border-radius:8px;
+        border:1px solid #eef2f7;
+        font-size:.95rem;
+      }
+      .search-actions{display:flex;gap:.5rem}
+      .btn{
+        background:var(--booking-yellow);
+        color:var(--booking-blue);
+        padding:.68rem 1rem;
+        border-radius:8px;
+        border:none;
+        cursor:pointer;
+        font-weight:700;
+      }
+      .btn.secondary{
+        background:#f3f4f6;
+        color:var(--text-dark);
+        border:1px solid #e6e9ee;
+      }
+
+      main{padding:2rem 0}
+      .sidebar-layout{display:grid;grid-template-columns:320px 1fr;gap:1.25rem}
+
+      .filters{background:#ffffff;padding:1rem;border-radius:12px;box-shadow:0 8px 24px rgba(8,16,40,0.06)}
+      .filters h4{margin-bottom:.6rem;font-weight:700;color:var(--text-dark)}
+      .filter-group{margin-bottom:.9rem}
+      .range{display:flex;gap:.5rem;align-items:center}
+      .chips{display:flex;gap:.5rem;flex-wrap:wrap}
+      .chip{padding:.4rem .6rem;border-radius:999px;background:#f3f6fb;color:var(--booking-blue);cursor:pointer;font-weight:600}
+      .chip.active{background:var(--booking-blue);color:var(--white)}
+      label span{color:var(--text-light);font-size:.9rem}
+
+      .listings{display:grid;gap:1rem}
+      .card{display:flex;gap:1rem;background:var(--white);padding:1rem;border-radius:12px;box-shadow:0 10px 28px rgba(12,20,40,0.06);align-items:center}
+      .card img{width:180px;height:120px;object-fit:cover;border-radius:8px}
+      .card-body{flex:1}
+      .card h3{font-size:1.05rem;margin-bottom:.25rem}
+      .meta{display:flex;gap:.6rem;align-items:center;color:var(--text-light);font-size:.92rem;margin-bottom:.45rem}
+      .price{font-size:1.15rem;font-weight:800;color:var(--booking-blue)}
+      .rating{background:var(--booking-blue);color:var(--white);padding:.35rem .5rem;border-radius:6px;font-weight:700}
+      .pill{background:#eef6ff;color:var(--booking-blue);padding:.35rem .6rem;border-radius:6px;font-size:.85rem;font-weight:700}
+
+    
+      .map{height:380px;background:linear-gradient(180deg,#eaf4ff,white);border-radius:12px;padding:1rem;display:grid;place-items:center;color:var(--booking-blue);font-weight:700}
+
+      
+
+      @media (max-width:900px){
+        .sidebar-layout{grid-template-columns:1fr;padding:0 1rem}
+        .nav-links{display:none}
+        .search-card{flex-direction:column;align-items:stretch}
+        .card img{width:140px;height:100px}
+      }
+
+      .muted{color:var(--text-light)}
+      .small{font-size:.85rem}
+
+      .modal-backdrop{position:fixed;inset:0;background:rgba(2,8,23,0.45);display:none;place-items:center;z-index:80}
+      .modal{background:#fff;padding:1.1rem;border-radius:12px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(2,8,23,0.32)}
+    </style>
+  </head>
+
+  <body>
+   
+    <div id="site-header"></div>
+
+   
+    <header class="hero">
+      <div class="container">
+        <h1>Find deals on hotels, homes and much more</h1>
+        <p class="muted small">Compare prices &amp; read verified guest reviews — book your perfect stay.</p>
+
+        <div class="search-card" role="search" aria-label="Search hotels">
+          <div class="search-field">
+            <select id="location-select" aria-label="Location">
+              <option value="Dakar">Dakar</option>
+              <option value="New York">New York</option>
+              <option value="Paris">Paris</option>
+              <option value="Tokyo">Tokyo</option>
+            </select>
+          </div>
+
+          <div class="search-field">
+            <input type="date" id="chk-in" aria-label="Check in" />
+          </div>
+
+          <div class="search-field">
+            <input type="date" id="chk-out" aria-label="Check out" />
+          </div>
+
+          <div class="search-field">
+            <select id="guests" aria-label="Guests">
+              <option value="1">1 guest</option>
+              <option value="2">2 guests</option>
+              <option value="3">3 guests</option>
+              <option value="4">4 guests</option>
+            </select>
+          </div>
+
+          <div class="search-actions">
+            <button class="btn" id="search-btn">Search</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+ 
+    <main class="container" role="main">
+      <div class="sidebar-layout">
+       
+        <aside class="filters" aria-label="Filters">
+          <h4>Filters</h4>
+
+          <div class="filter-group">
+            <label class="small" for="sort">Sort</label>
+            <select id="sort" aria-label="Sort results">
+              <option value="recommended">Recommended</option>
+              <option value="price-asc">Price: low to high</option>
+              <option value="price-desc">Price: high to low</option>
+              <option value="rating-desc">Top rated</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label class="small">Price range <span class="muted">(USD/night)</span></label>
+            <div class="range">
+              <input type="number" id="min-price" placeholder="Min" aria-label="Min price" />
+              <input type="number" id="max-price" placeholder="Max" aria-label="Max price" />
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label class="small">Rating</label>
+            <div class="chips" id="rating-chips" role="list">
+              <div class="chip" data-rating="4" role="listitem">4★ & up</div>
+              <div class="chip" data-rating="3" role="listitem">3★ & up</div>
+              <div class="chip" data-rating="0" role="listitem">All</div>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label class="small">Facilities</label>
+            <div class="chips" id="facility-chips" role="list">
+              <div class="chip" data-facility="wifi" role="listitem">Wi-Fi</div>
+              <div class="chip" data-facility="breakfast" role="listitem">Breakfast</div>
+              <div class="chip" data-facility="pool" role="listitem">Pool</div>
+              <div class="chip" data-facility="parking" role="listitem">Parking</div>
+            </div>
+          </div>
+
+          <div style="margin-top:1rem;display:flex;gap:.5rem">
+            <button class="btn" id="apply-filters">Apply</button>
+            <button class="btn secondary" id="clear-filters">Clear</button>
+          </div>
+        </aside>
+
+        
+        <section>
+          <div style="display:flex;gap:1rem;margin-bottom:1rem;align-items:center;flex-wrap:wrap">
+            <div class="pill">Showing <span id="results-count">0</span> stays</div>
+            <div class="muted small">Best deals near selected location</div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 360px;gap:1rem">
+            <div>
+              <div class="listings" id="listings" aria-live="polite"></div>
+            </div>
+            <div>
+              <div class="map" id="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3857.982747843704!2d-17.46768648465159!3d14.693425989764116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xec172f5f5b4a8c9%3A0x1b1b1b1b1b1b1b1b!2sDakar%2C%20Senegal!5e0!3m2!1sen!2s!4v1703123456789!5m2!1sen!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    
+    <div id="site-footer"></div>
+
+    <div class="modal-backdrop" id="modal-backdrop" aria-hidden>
+      <div class="modal" role="dialog" aria-modal="true">
+        <h3 id="modal-title">Book Room</h3>
+        <p class="muted small" id="modal-sub">Confirm booking details</p>
+        <div style="display:flex;gap:.5rem;margin-top:1rem">
+          <input id="book-name" placeholder="Your name" style="flex:1;padding:.6rem;border:1px solid #eef2f7;border-radius:8px" />
+          <input id="book-email" placeholder="Email" style="flex:1;padding:.6rem;border:1px solid #eef2f7;border-radius:8px" />
+        </div>
+        <div style="display:flex;gap:.5rem;margin-top:1rem;justify-content:flex-end">
+          <button class="btn" id="confirm-book">Confirm</button>
+          <button class="btn secondary" id="close-modal" style="background:#f3f4f6;color:var(--text-dark)">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    
+      const HOTELS = [
+        {id:1,name:'Terrou-Bi Hotel',location:'Dakar',price:150,stars:4,rating:8.8,facilities:['wifi','breakfast','pool','parking'],img:'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200&auto=format&fit=crop'},
+        {id:2,name:'Pullman Dakar Teranga',location:'Dakar',price:220,stars:5,rating:9.1,facilities:['wifi','breakfast','pool','spa','gym'],img:'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=1200&auto=format&fit=crop'},
+        {id:3,name:'Radisson Blu Dakar',location:'Dakar',price:190,stars:4,rating:8.5,facilities:['wifi','breakfast','pool','parking','restaurant'],img:'https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=1200&auto=format&fit=crop'},
+        {id:4,name:'Saly Hotel',location:'Dakar',price:120,stars:4,rating:8.2,facilities:['wifi','breakfast','pool','beach-access'],img:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=1200&auto=format&fit=crop'},
+        {id:5,name:'King Fahd Palace Hotel',location:'Dakar',price:280,stars:5,rating:9.3,facilities:['wifi','breakfast','pool','spa','restaurant','parking'],img:'https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=1200&auto=format&fit=crop'},
+        {id:6,name:'Hotel Lac Rose',location:'Dakar',price:95,stars:3,rating:7.8,facilities:['wifi','breakfast','parking'],img:'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=1200&auto=format&fit=crop'}
+      ];
+
+    
+      let results = [...HOTELS];
+      const listingsEl = document.getElementById('listings');
+      const resultsCount = document.getElementById('results-count');
+      const searchBtn = document.getElementById('search-btn');
+      const locationSelect = document.getElementById('location-select');
+      const sortEl = document.getElementById('sort');
+      const minPrice = document.getElementById('min-price');
+      const maxPrice = document.getElementById('max-price');
+      const applyFilters = document.getElementById('apply-filters');
+      const clearFilters = document.getElementById('clear-filters');
+
+      const modalBackdrop = document.getElementById('modal-backdrop');
+      const modalTitle = document.getElementById('modal-title');
+
+      function renderListings(list){
+        listingsEl.innerHTML = '';
+        if(!list.length){
+          listingsEl.innerHTML = '<div class="card"><div class="card-body"><h3>No results found</h3><p class="muted">Try changing filters or dates.</p></div></div>';
+          resultsCount.textContent = 0;
+          return;
+        }
+        resultsCount.textContent = list.length;
+        list.forEach(h => {
+          const card = document.createElement('div'); card.className='card';
+          card.innerHTML = `
+            <img src="${h.img}" alt="${h.name}" loading="lazy"/>
+            <div class="card-body">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                <div>
+                  <h3>${h.name}</h3>
+                  <div class="meta"><div class="muted">${h.location}</div><div>•</div><div class="small">${h.stars} stars</div></div>
+                </div>
+                <div style="text-align:right">
+                  <div class="rating small">${h.rating}</div>
+                </div>
+              </div>
+              <p class="muted small" style="margin-top:.45rem">${h.facilities.join(' • ')}</p>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-top:.9rem">
+                <div class="price">$${h.price}<span class="small muted"> / night</span></div>
+                <div>
+                  <button class="btn" data-id="${h.id}" onclick="openBooking(${h.id})">Reserve</button>
+                  <button class="btn secondary" style="margin-left:.5rem" onclick="viewDetails(${h.id})">Details</button>
+                </div>
+              </div>
+            </div>
+          `;
+          listingsEl.appendChild(card);
+        })
+      }
+
+      function applyAll(){
+        const loc = locationSelect.value;
+        const min = Number(minPrice.value || 0);
+        const max = Number(maxPrice.value || 1e6);
+        const sort = sortEl.value;
+
+        const activeRating = document.querySelector('#rating-chips .chip.active');
+        const ratingMin = activeRating ? Number(activeRating.dataset.rating) : 0;
+
+        const selectedFacilities = Array.from(document.querySelectorAll('#facility-chips .chip.active')).map(c=>c.dataset.facility);
+
+        let filtered = HOTELS.filter(h => h.location === loc);
+        filtered = filtered.filter(h => h.price >= min && h.price <= max);
+        if(ratingMin>0) filtered = filtered.filter(h => Math.floor(h.rating) >= ratingMin);
+        if(selectedFacilities.length) filtered = filtered.filter(h => selectedFacilities.every(f => h.facilities.includes(f)));
+
+        if(sort==='price-asc') filtered.sort((a,b)=>a.price-b.price);
+        if(sort==='price-desc') filtered.sort((a,b)=>b.price-a.price);
+        if(sort==='rating-desc') filtered.sort((a,b)=>b.rating-a.rating);
+
+        results = filtered;
+        renderListings(results);
+      }
+
+     
+      document.querySelectorAll('.chip').forEach(ch=>{
+        ch.addEventListener('click', ()=>{
+          const parent = ch.parentElement.id;
+          if(parent==='rating-chips'){
+            document.querySelectorAll('#rating-chips .chip').forEach(x=>x.classList.remove('active'));
+            ch.classList.add('active');
+          } else {
+            ch.classList.toggle('active');
+          }
+        })
+      })
+
+      applyFilters.addEventListener('click', applyAll);
+      clearFilters.addEventListener('click', ()=>{
+        minPrice.value='';maxPrice.value='';document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));sortEl.value='recommended';renderListings(HOTELS.filter(h=>h.location===locationSelect.value));
+      })
+
+      searchBtn.addEventListener('click', (e)=>{e.preventDefault();applyAll();});
+
+      function openBooking(id){
+        const hotel = HOTELS.find(h=>h.id===id);
+        modalTitle.textContent = 'Reserve — '+hotel.name;
+        modalBackdrop.style.display='grid';
+        modalBackdrop.setAttribute('aria-hidden','false');
+      }
+      function viewDetails(id){
+        const hotel = HOTELS.find(h=>h.id===id);
+        alert(hotel.name + '\n' + hotel.location + '\n$' + hotel.price + '/night');
+      }
+      document.getElementById('close-modal').addEventListener('click', ()=>{ modalBackdrop.style.display='none'; modalBackdrop.setAttribute('aria-hidden','true'); });
+      document.getElementById('confirm-book').addEventListener('click', ()=>{
+        const name = document.getElementById('book-name').value || 'Guest';
+        alert('Thanks '+name+'! Your reservation request has been received.');
+        modalBackdrop.style.display='none';
+        modalBackdrop.setAttribute('aria-hidden','true');
+      })
+
+    
+      (function init(){
+        renderListings(HOTELS.filter(h=>h.location===locationSelect.value));
+        locationSelect.addEventListener('change', ()=>renderListings(HOTELS.filter(h=>h.location===locationSelect.value)));
+      })();
+
+      
+      window.openBooking = openBooking;
+      window.viewDetails = viewDetails;
+    </script>
+    <script src="header.js" ></script>
+    <script src="footer.js" ></script>
+  </body>
+</html>

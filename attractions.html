@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking.com — Attractions</title>
+  <link rel="stylesheet" href="header.css">
+  <link rel="stylesheet" href="footer.css">
+
+  <style>
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Poppins', -apple-system, sans-serif; background: #f6f6f6; color: #333; }
+    
+    .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    
+    .hero {
+      background: #003580;
+      color: white;
+      padding: 3rem 0;
+      text-align: center;
+    }
+    
+    .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .hero p { font-size: 1.1rem; opacity: 0.9; }
+    
+    .search-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      margin: -2rem auto 2rem;
+      max-width: 700px;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    
+    .search-card input {
+      flex: 1;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    
+    .btn {
+      background: #003580;
+      color: white;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .btn:hover { background: #0071c2; }
+    
+    .categories {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .category-chip {
+      padding: 0.5rem 1rem;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .category-chip:hover, .category-chip.active {
+      background: #003580;
+      color: white;
+      border-color: #003580;
+    }
+    
+    .attractions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .attraction-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .attraction-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    
+    .attraction-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    
+    .attraction-info {
+      padding: 1.5rem;
+    }
+    
+    .attraction-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #003580;
+    }
+    
+    .attraction-location {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    
+    .attraction-description {
+      color: #666;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    
+    .attraction-rating {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .rating-badge {
+      background: #003580;
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    
+    .rating-text {
+      color: #666;
+      font-size: 0.85rem;
+    }
+    
+    .attraction-price {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+    }
+    
+    .price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #003580;
+    }
+    
+    .price-label {
+      font-size: 0.85rem;
+      color: #666;
+    }
+  </style>
+
+</head>
+
+<body>
+  
+  <div id="site-header"></div>
+
+  <div class="hero">
+    <div class="container">
+      <h1>Discover amazing attractions</h1>
+      <p>Explore the best things to do in Senegal</p>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="search-card">
+      <input type="text" placeholder="Search attractions in Dakar..." id="search-input">
+      <button class="btn">Search</button>
+    </div>
+
+    
+    <div class="categories">
+      <div class="category-chip active" data-category="all">All</div>
+      <div class="category-chip" data-category="cultural">Cultural</div>
+      <div class="category-chip" data-category="nature">Nature</div>
+      <div class="category-chip" data-category="adventure">Adventure</div>
+      <div class="category-chip" data-category="historical">Historical</div>
+      <div class="category-chip" data-category="beach">Beach</div>
+    </div>
+
+  
+    <h2 style="margin-bottom: 1rem;">Popular Attractions in Senegal</h2>
+    <div class="attractions-grid" id="attractions-grid"></div>
+  </div>
+
+
+  <div id="site-footer"></div>
+
+  <script>
+const ATTRACTIONS = [
+  {
+    id: 1,
+    name: 'Île de Gorée',
+    location: 'Dakar',
+    rating: 9.2,
+    price: 2000,
+    img: 'goree.jpg'
+  },
+  {
+    id: 2,
+    name: 'Lac Rose',
+    location: 'Rufisque',
+    rating: 8.8,
+    price: 15000,
+    img: 'unknown.jpeg'
+  },
+  {
+    id: 3,
+    name: 'African Renaissance Monument',
+    location: 'Dakar',
+    rating: 8.5,
+    price: 3000,
+    img: 'monument.jpeg'
+  }
+];
+
+ATTRACTIONS.forEach(a =>
+  document.getElementById('attractions-grid').innerHTML += `
+    <div class="attraction-card">
+      <img src="${a.img}" alt="${a.name}">
+      <div class="attraction-info">
+        <div class="attraction-name">${a.name}</div>
+        <div class="attraction-location">📍 ${a.location}</div>
+        <div class="attraction-price">
+          <div>
+            <div class="price">${a.price.toLocaleString()} CFA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `
+);
+</script>
+
+  <style>
+    #site-header .hero-section {
+      display: none !important;
+    }
+  </style>
+
+  <script src="header.js" ></script>
+  <script src="footer.js" ></script>
+</body>
+</html>

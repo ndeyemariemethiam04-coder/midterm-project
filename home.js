@@ -1,0 +1,5 @@
+const HOTELS=[{id:1,name:'Terrou-Bi Hotel',location:'Dakar',price:150,stars:4,rating:8.8,img:'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200&auto=format&fit=crop'},
+      {id:2,name:'Pullman Dakar Teranga',location:'Dakar',price:220,stars:5,rating:9.1,img:'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=1200&auto=format&fit=crop'},
+      {id:3,name:'Radisson Blu Dakar',location:'Dakar',price:190,stars:4,rating:8.5,img:'https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=1200&auto=format&fit=crop'}];
+      document.getElementById('results-count').textContent=HOTELS.length;
+      HOTELS.forEach(h=>document.getElementById('listings').innerHTML+=`<div class="card"><img src="${h.img}" alt="${h.name}"/><div class="card-body"><h3>${h.name}</h3><div class="meta"><div class="muted">${h.location}</div><div>•</div><div class="small">${h.stars} stars</div></div><div style="margin-top:.75rem"><div class="price">$${h.price}<span class="small muted"> / night</span></div></div></div></div>`);

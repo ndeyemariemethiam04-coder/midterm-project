@@ -1,0 +1,6 @@
+const HOTELS=[{id:1,name:'Terrou-Bi Hotel',location:'Dakar',price:84890,stars:4,rating:8.8,img:'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&auto=format&fit=crop'},
+{id:2,name:'Pullman Dakar Teranga',location:'Dakar',price:124505,stars:5,rating:9.1,img:'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&auto=format&fit=crop'},
+{id:3,name:'Radisson Blu Dakar',location:'Dakar',price:107527,stars:4,rating:8.5,img:'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&auto=format&fit=crop'},
+{id:4, name:'Saly Hotel',location:'Saly Portudal',price:67912,stars:4,rating:8.2,img:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&auto=format&fit=crop'}];
+document.getElementById('results-count').textContent=HOTELS.length;
+HOTELS.forEach(h=>document.getElementById('listings').innerHTML+=`<div class="card"><img src="${h.img}" alt="${h.name}"/><div class="card-body"><h3>${h.name}</h3><div class="meta"><div class="muted">${h.location}</div><div>•</div><div class="small">${h.stars} stars</div></div><div style="margin-top:.75rem"><div class="price">${h.price.toLocaleString()} CFA<span class="small muted"> / night</span></div></div></div></div>`);

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Booking Clone — Hotel Search</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="footer.css" />
+    <link rel="stylesheet" href="home.css">
+
+
+  </head>
+
+  <body>
+    
+    <div id="site-header"></div>
+
+    
+    <header class="hero">
+      <div class="container">
+        <h1>Find deals on hotels, homes and much more</h1>
+        <p class="muted small">Compare prices &amp; read verified guest reviews — book your perfect stay.</p>
+
+        <div class="search-card" role="search" aria-label="Search hotels">
+          <div class="search-field">
+            <select id="location-select" aria-label="Location">
+              <option value="Dakar">Dakar</option>
+              <option value="New York">New York</option>
+              <option value="Paris">Paris</option>
+              <option value="Tokyo">Tokyo</option>
+            </select>
+          </div>
+
+          <div class="search-field">
+            <input type="date" id="chk-in" aria-label="Check in" />
+          </div>
+
+          <div class="search-field">
+            <input type="date" id="chk-out" aria-label="Check out" />
+          </div>
+
+          <div class="search-field">
+            <select id="guests" aria-label="Guests">
+              <option value="1">1 guest</option>
+              <option value="2">2 guests</option>
+              <option value="3">3 guests</option>
+              <option value="4">4 guests</option>
+            </select>
+          </div>
+
+          <div class="search-actions">
+            <button class="btn" id="search-btn">Search</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    
+    <main class="container" role="main">
+      <div class="sidebar-layout">
+        
+        <aside class="filters" aria-label="Filters">
+          <h4>Filters</h4>
+
+          <div class="filter-group">
+            <label class="small" for="sort">Sort</label>
+            <select id="sort" aria-label="Sort results">
+              <option value="recommended">Recommended</option>
+              <option value="price-asc">Price: low to high</option>
+              <option value="price-desc">Price: high to low</option>
+              <option value="rating-desc">Top rated</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label class="small">Price range <span class="muted">(USD/night)</span></label>
+            <div class="range">
+              <input type="number" id="min-price" placeholder="Min" aria-label="Min price" />
+              <input type="number" id="max-price" placeholder="Max" aria-label="Max price" />
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label class="small">Rating</label>
+            <div class="chips" id="rating-chips" role="list">
+              <div class="chip" data-rating="4" role="listitem">4★ & up</div>
+              <div class="chip" data-rating="3" role="listitem">3★ & up</div>
+              <div class="chip" data-rating="0" role="listitem">All</div>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label class="small">Facilities</label>
+            <div class="chips" id="facility-chips" role="list">
+              <div class="chip" data-facility="wifi" role="listitem">Wi-Fi</div>
+              <div class="chip" data-facility="breakfast" role="listitem">Breakfast</div>
+              <div class="chip" data-facility="pool" role="listitem">Pool</div>
+              <div class="chip" data-facility="parking" role="listitem">Parking</div>
+            </div>
+          </div>
+
+          <div style="margin-top:1rem;display:flex;gap:.5rem">
+            <button class="btn" id="apply-filters">Apply</button>
+            <button class="btn secondary" id="clear-filters">Clear</button>
+          </div>
+        </aside>
+
+        
+        <section>
+          <div style="display:flex;gap:1rem;margin-bottom:1rem;align-items:center;flex-wrap:wrap">
+            <div class="pill">Showing <span id="results-count">0</span> stays</div>
+            <div class="muted small">Best deals near selected location</div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 360px;gap:1rem">
+            <div>
+              <div class="listings" id="listings" aria-live="polite"></div>
+            </div>
+            <div>
+              <div class="map" id="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3857.982747843704!2d-17.46768648465159!3d14.693425989764116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xec172f5f5b4a8c9%3A0x1b1b1b1b1b1b1b1b!2sDakar%2C%20Senegal!5e0!3m2!1sen!2s!4v1703123456789!5m2!1sen!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    
+    <div id="site-footer"></div>
+
+    
+    <div class="modal-backdrop" id="modal-backdrop" aria-hidden>
+      <div class="modal" role="dialog" aria-modal="true">
+        <h3 id="modal-title">Book Room</h3>
+        <p class="muted small" id="modal-sub">Confirm booking details</p>
+        <div style="display:flex;gap:.5rem;margin-top:1rem">
+          <input id="book-name" placeholder="Your name" style="flex:1;padding:.6rem;border:1px solid #eef2f7;border-radius:8px" />
+          <input id="book-email" placeholder="Email" style="flex:1;padding:.6rem;border:1px solid #eef2f7;border-radius:8px" />
+        </div>
+        <div style="display:flex;gap:.5rem;margin-top:1rem;justify-content:flex-end">
+          <button class="btn" id="confirm-book">Confirm</button>
+          <button class="btn secondary" id="close-modal" style="background:#f3f4f6;color:var(--text-dark)">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    
+    <script src="header.js" ></script>
+    <script src="footer.js" ></script>
+  </body>
+</html>
